@@ -8,20 +8,22 @@
 
 /* Begin PBXBuildFile section */
 		732C216E22057F8B001571DB /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 732C216D22057F8B001571DB /* AppDelegate.swift */; };
-		732C217022057F8B001571DB /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 732C216F22057F8B001571DB /* ViewController.swift */; };
 		732C217322057F8B001571DB /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 732C217122057F8B001571DB /* Main.storyboard */; };
 		732C217522057F8D001571DB /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 732C217422057F8D001571DB /* Assets.xcassets */; };
 		732C217822057F8D001571DB /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 732C217622057F8D001571DB /* LaunchScreen.storyboard */; };
+		732C2182220586F4001571DB /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 732C2181220586F4001571DB /* HomeViewController.swift */; };
+		732C2184220587F6001571DB /* GalleryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 732C2183220587F6001571DB /* GalleryViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		732C216A22057F8B001571DB /* FlickrExplore.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FlickrExplore.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		732C216D22057F8B001571DB /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		732C216F22057F8B001571DB /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		732C217222057F8B001571DB /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		732C217422057F8D001571DB /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		732C217722057F8D001571DB /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		732C217922057F8D001571DB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		732C2181220586F4001571DB /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
+		732C2183220587F6001571DB /* GalleryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GalleryViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -54,14 +56,31 @@
 		732C216C22057F8B001571DB /* FlickrExplore */ = {
 			isa = PBXGroup;
 			children = (
-				732C216D22057F8B001571DB /* AppDelegate.swift */,
-				732C216F22057F8B001571DB /* ViewController.swift */,
+				732C2180220586DA001571DB /* ViewControllers */,
+				732C217F22058682001571DB /* SupportingFiles */,
 				732C217122057F8B001571DB /* Main.storyboard */,
 				732C217422057F8D001571DB /* Assets.xcassets */,
-				732C217622057F8D001571DB /* LaunchScreen.storyboard */,
 				732C217922057F8D001571DB /* Info.plist */,
 			);
 			path = FlickrExplore;
+			sourceTree = "<group>";
+		};
+		732C217F22058682001571DB /* SupportingFiles */ = {
+			isa = PBXGroup;
+			children = (
+				732C216D22057F8B001571DB /* AppDelegate.swift */,
+				732C217622057F8D001571DB /* LaunchScreen.storyboard */,
+			);
+			path = SupportingFiles;
+			sourceTree = "<group>";
+		};
+		732C2180220586DA001571DB /* ViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+				732C2181220586F4001571DB /* HomeViewController.swift */,
+				732C2183220587F6001571DB /* GalleryViewController.swift */,
+			);
+			path = ViewControllers;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -135,8 +154,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				732C217022057F8B001571DB /* ViewController.swift in Sources */,
+				732C2184220587F6001571DB /* GalleryViewController.swift in Sources */,
 				732C216E22057F8B001571DB /* AppDelegate.swift in Sources */,
+				732C2182220586F4001571DB /* HomeViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
