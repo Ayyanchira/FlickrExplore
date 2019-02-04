@@ -22,6 +22,8 @@
 		732C21962207574E001571DB /* PhotoDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 732C21952207574E001571DB /* PhotoDetailViewController.swift */; };
 		732C2198220760EE001571DB /* ImageTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 732C2197220760EE001571DB /* ImageTableViewCell.swift */; };
 		732C219A2207610E001571DB /* ImageDescriptionTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 732C21992207610E001571DB /* ImageDescriptionTableViewCell.swift */; };
+		732C219E22078673001571DB /* PhotoInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 732C219D22078673001571DB /* PhotoInfo.swift */; };
+		732C21A02207B5E6001571DB /* PhotoDetailCustom.swift in Sources */ = {isa = PBXBuildFile; fileRef = 732C219F2207B5E6001571DB /* PhotoDetailCustom.swift */; };
 		B080145801B35E987719EEE7 /* Pods_FlickrExplore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 03EF7F4961EE3EAE7A6232E1 /* Pods_FlickrExplore.framework */; };
 /* End PBXBuildFile section */
 
@@ -44,6 +46,8 @@
 		732C21952207574E001571DB /* PhotoDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoDetailViewController.swift; sourceTree = "<group>"; };
 		732C2197220760EE001571DB /* ImageTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageTableViewCell.swift; sourceTree = "<group>"; };
 		732C21992207610E001571DB /* ImageDescriptionTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageDescriptionTableViewCell.swift; sourceTree = "<group>"; };
+		732C219D22078673001571DB /* PhotoInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoInfo.swift; sourceTree = "<group>"; };
+		732C219F2207B5E6001571DB /* PhotoDetailCustom.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoDetailCustom.swift; sourceTree = "<group>"; };
 		D41E3669DDE049563BBA11CF /* Pods-FlickrExplore.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FlickrExplore.release.xcconfig"; path = "Pods/Target Support Files/Pods-FlickrExplore/Pods-FlickrExplore.release.xcconfig"; sourceTree = "<group>"; };
 		E2940F6930F1EEB6E71A5647 /* Pods-FlickrExplore.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FlickrExplore.debug.xcconfig"; path = "Pods/Target Support Files/Pods-FlickrExplore/Pods-FlickrExplore.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -144,6 +148,8 @@
 			isa = PBXGroup;
 			children = (
 				732C218E2206A94C001571DB /* Photos.swift */,
+				732C219D22078673001571DB /* PhotoInfo.swift */,
+				732C219F2207B5E6001571DB /* PhotoDetailCustom.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -292,7 +298,9 @@
 				732C2184220587F6001571DB /* GalleryViewController.swift in Sources */,
 				732C21892206851D001571DB /* GalleryViewModel.swift in Sources */,
 				732C21942207456E001571DB /* GalleryTableViewCell.swift in Sources */,
+				732C219E22078673001571DB /* PhotoInfo.swift in Sources */,
 				732C2198220760EE001571DB /* ImageTableViewCell.swift in Sources */,
+				732C21A02207B5E6001571DB /* PhotoDetailCustom.swift in Sources */,
 				732C216E22057F8B001571DB /* AppDelegate.swift in Sources */,
 				732C2182220586F4001571DB /* HomeViewController.swift in Sources */,
 				732C218C2206A77E001571DB /* NetworkService.swift in Sources */,

@@ -11,8 +11,7 @@ import UIKit
 class PhotoDetailViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     //MARK:- IBOUTlets
-    
-    
+    var photoInfo:PhotoDetailCustom?
     //MARK:- properties
     
     
@@ -24,9 +23,16 @@ class PhotoDetailViewController: UIViewController, UITableViewDelegate, UITableV
         tableView.rowHeight = UITableView.automaticDimension
         tableView.estimatedRowHeight = 350
         // Do any additional setup after loading the view.
+        NotificationCenter.default.addObserver(self, selector: #selector(self.updateUI(notification:)), name: Notification.Name(rawValue: "GetInfo"), object: nil)
+        
     }
     
-    
+    @objc func updateUI(notification: NSNotification) {
+        if let data = notification.object as? PhotoDetailCustom{
+            photoInfo = data
+            tableView.reloadData()
+        }
+    }
     
     
     //MARK:- Table View delegate methods
@@ -41,6 +47,17 @@ class PhotoDetailViewController: UIViewController, UITableViewDelegate, UITableV
             
         }else if (indexPath.row == 1){
             let cell = tableView.dequeueReusableCell(withIdentifier: "descriptionCell") as! ImageDescriptionTableViewCell
+            cell.ownerNameLabel.text = photoInfo?.ownerUsername
+            cell.locationLabel.text = photoInfo?.ownerLocation
+            cell.descriptionTextView.text =  photoInfo?.descriptionText
+            if let tags = photoInfo?.tags{
+                for (index,tagName) in tags.enumerated(){
+                    if index < 5{
+                        cell.tagButtons[index].setTitle(tagName, for: .normal)
+                    }
+                }
+            }
+            
             return cell
         }else{
             let cell = tableView.dequeueReusableCell(withIdentifier: "shareCell") as! UITableViewCell

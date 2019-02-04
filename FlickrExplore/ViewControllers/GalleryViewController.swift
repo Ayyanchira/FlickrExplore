@@ -15,7 +15,11 @@ class GalleryViewController: UIViewController, UITableViewDelegate, UITableViewD
 
     @IBOutlet weak var tableView: UITableView!
     //MARK:- Properties
-    var searchTag:String?
+    var searchTag:String?{
+        didSet{
+            NetworkService.getPhotoListFor(tag: searchTag!)
+        }
+    }
     static var photos: Photos?
     
     //MARK:- Injection
@@ -31,7 +35,7 @@ class GalleryViewController: UIViewController, UITableViewDelegate, UITableViewD
     
     override func viewWillAppear(_ animated: Bool) {
         self.setTitle()
-        NetworkService.getPhotoListFor(tag: searchTag!)
+        //NetworkService.getPhotoListFor(tag: searchTag!)
     }
     
     func setTitle() {
@@ -64,6 +68,7 @@ class GalleryViewController: UIViewController, UITableViewDelegate, UITableViewD
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         performSegue(withIdentifier: "showDetail", sender: GalleryViewController.photos!.photos.photo[indexPath.row])
+        NetworkService.getPhotoInfo(photoID: GalleryViewController.photos!.photos.photo[indexPath.row].id)
     }
     
     @objc func refreshTableView() {
