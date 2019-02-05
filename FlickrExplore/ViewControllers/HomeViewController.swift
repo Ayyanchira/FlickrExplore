@@ -14,6 +14,12 @@ class HomeViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.navigationItem.title = "FlickrSearch!"
+        
+        self.navigationController?.navigationBar.barTintColor = #colorLiteral(red: 0.07579580694, green: 0.08882082254, blue: 0.1714539528, alpha: 1)
+        self.navigationController?.navigationBar.tintColor = #colorLiteral(red: 0.9886394143, green: 1, blue: 0.9957388043, alpha: 1)
+        navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.white]
+
+        
     }
     
     @IBAction func searchButtonPressed(_ sender: Any) {

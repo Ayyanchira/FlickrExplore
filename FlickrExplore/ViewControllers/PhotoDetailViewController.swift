@@ -43,6 +43,11 @@ class PhotoDetailViewController: UIViewController, UITableViewDelegate, UITableV
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if indexPath.row == 0{
             let cell = tableView.dequeueReusableCell(withIdentifier: "imageCell") as! ImageTableViewCell
+            if let urlString = photoInfo?.rawFileURL{
+                let url = URL(string: urlString)
+                cell.photoView.sd_setImage(with: url, completed: nil)
+            }
+            
             return cell
             
         }else if (indexPath.row == 1){

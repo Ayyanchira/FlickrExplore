@@ -31,6 +31,7 @@ class GalleryViewController: UIViewController, UITableViewDelegate, UITableViewD
         super.viewDidLoad()
         
         NotificationCenter.default.addObserver(self, selector: #selector(refreshTableView), name: Notification.Name("reloadGallery"), object: nil)
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -55,9 +56,11 @@ class GalleryViewController: UIViewController, UITableViewDelegate, UITableViewD
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         //return galleryViewModel.cellForRowAtIndexPath(tableView: tableView, indexPath: indexPath)
         let cell = tableView.dequeueReusableCell(withIdentifier: "gallaryCell") as! GalleryTableViewCell
-        cell.imageTitle.text = GalleryViewController.photos?.photos.photo[indexPath.row].title
+//        cell.imageTitle.text = GalleryViewController.photos?.photos.photo[indexPath.row].title
+        cell.imageTitle.text = ""
+
         let imageURL = URL(string: "https://farm\(GalleryViewController.photos!.photos.photo[indexPath.row].farm).staticflickr.com/\(GalleryViewController.photos!.photos.photo[indexPath.row].server)/\(GalleryViewController.photos!.photos.photo[indexPath.row].id)_\(GalleryViewController.photos!.photos.photo[indexPath.row].secret).jpg")
-        
+        cell.selectionStyle = .none
         cell.thumbnailImageView.sd_setImage(with: imageURL, completed: nil)
         return cell
     }
@@ -75,4 +78,7 @@ class GalleryViewController: UIViewController, UITableViewDelegate, UITableViewD
         tableView.reloadData()
     }
     
+    @IBAction func advancedSearchPressed(_ sender: UIBarButtonItem) {
+        
+    }
 }

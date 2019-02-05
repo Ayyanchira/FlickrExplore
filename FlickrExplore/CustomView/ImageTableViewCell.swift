@@ -10,8 +10,10 @@ import UIKit
 
 class ImageTableViewCell: UITableViewCell {
 
+    @IBOutlet weak var photoView: UIImageView!
     override func awakeFromNib() {
         super.awakeFromNib()
+        self.selectionStyle = .none
         // Initialization code
     }
 
