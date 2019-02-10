@@ -9,17 +9,26 @@
 import UIKit
 import SDWebImage
 
-class GalleryViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+class GalleryViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UIPopoverPresentationControllerDelegate, ListenToSearchDelegate {
     
     
-
+    
+    
+    //Mar:- IBOutlets
     @IBOutlet weak var tableView: UITableView!
+    
+    @IBAction func advancedSearchTextChanged(_ sender: UITextField) {
+        print("What is this?")
+    }
+    
     //MARK:- Properties
     var searchTag:String?{
         didSet{
             NetworkService.getPhotoListFor(tag: searchTag!)
         }
     }
+    var isFilteredSearchOn = false
+    var filteredPhotos:[Photo] = [Photo]()
     static var photos: Photos?
     
     //MARK:- Injection
@@ -56,7 +65,6 @@ class GalleryViewController: UIViewController, UITableViewDelegate, UITableViewD
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         //return galleryViewModel.cellForRowAtIndexPath(tableView: tableView, indexPath: indexPath)
         let cell = tableView.dequeueReusableCell(withIdentifier: "gallaryCell") as! GalleryTableViewCell
-//        cell.imageTitle.text = GalleryViewController.photos?.photos.photo[indexPath.row].title
         cell.imageTitle.text = ""
 
         let imageURL = URL(string: "https://farm\(GalleryViewController.photos!.photos.photo[indexPath.row].farm).staticflickr.com/\(GalleryViewController.photos!.photos.photo[indexPath.row].server)/\(GalleryViewController.photos!.photos.photo[indexPath.row].id)_\(GalleryViewController.photos!.photos.photo[indexPath.row].secret).jpg")
@@ -79,6 +87,38 @@ class GalleryViewController: UIViewController, UITableViewDelegate, UITableViewD
     }
     
     @IBAction func advancedSearchPressed(_ sender: UIBarButtonItem) {
+        performSegue(withIdentifier: "advancedSearch", sender: nil)
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "advancedSearch"{
+            let advancedSearchPopOverVC = segue.destination as! AdvancedSearchPopUpViewController
+            advancedSearchPopOverVC.modalPresentationStyle = .popover
+            advancedSearchPopOverVC.view.frame = CGRect(x: advancedSearchPopOverVC.view.frame.origin.x, y: advancedSearchPopOverVC.view.frame.origin.y, width: self.view.frame.width, height: advancedSearchPopOverVC.view.frame.height)
+            advancedSearchPopOverVC.popoverPresentationController?.delegate = self
+            advancedSearchPopOverVC.delegate = self
+        }
+    }
+    
+    func adaptivePresentationStyle(for controller: UIPresentationController) -> UIModalPresentationStyle {
+        return .none
+    }
+    
+    
+    func performSearchUsing(keywords: String) {
+        print("Got this string.. woohoo. It says - \(keywords)")
+        isFilteredSearchOn = true
+        var photosCopy = GalleryViewController.photos
         
+        for (index,photo) in (photosCopy?.photos.photo.enumerated())!{
+            print("Iterating photo number : \(index) ")
+            print("Photo title is \(photo.title)")
+            if photo.title.contains(keywords){
+                //select this element
+                filteredPhotos.append(photo)
+            }
+        }
+        
+        tableView.reloadData()
     }
 }

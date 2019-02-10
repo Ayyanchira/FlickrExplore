@@ -84,4 +84,16 @@ class PhotoDetailViewController: UIViewController, UITableViewDelegate, UITableV
         
     }
 
+    @IBAction func shareButtonPressed(_ sender: Any) {
+        let photoURL = URL(string: (photoInfo?.rawFileURL)!)
+        let image = try! UIImage.sd_image(with: Data(contentsOf: photoURL!))
+        
+        print("Image has been loaded")
+        let imageToShare = [ image! ]
+        let activityViewController = UIActivityViewController(activityItems: imageToShare, applicationActivities: nil)
+        activityViewController.popoverPresentationController?.sourceView = self.view // so that iPads won't crash
+        
+        // present the view controller
+        self.present(activityViewController, animated: true, completion: nil)
+    }
 }
