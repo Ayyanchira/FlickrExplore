@@ -11,7 +11,7 @@ import Alamofire
 
 class NetworkService: NSObject {
 
-    
+    //Method to get list of photos for provided tag
     static public func getPhotoListFor(tag tagName:String)  {
         
         Alamofire.request("https://api.flickr.com/services/rest/?method=\(Constants.API_Search_Method_Values.SearchMethod)&api_key=\(Constants.API_Search_Method_Values.APIKey)&format=json&nojsoncallback=1&tags=\(tagName)&extras=description,tags", method: .get, parameters: nil, encoding: JSONEncoding.prettyPrinted, headers: nil).responsePhotos { (response) in
