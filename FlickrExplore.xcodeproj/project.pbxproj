@@ -25,6 +25,9 @@
 		732C219E22078673001571DB /* PhotoInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 732C219D22078673001571DB /* PhotoInfo.swift */; };
 		732C21A02207B5E6001571DB /* PhotoDetailCustom.swift in Sources */ = {isa = PBXBuildFile; fileRef = 732C219F2207B5E6001571DB /* PhotoDetailCustom.swift */; };
 		73D5D666220FB9D600F96F60 /* AdvancedSearchPopUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73D5D665220FB9D600F96F60 /* AdvancedSearchPopUpViewController.swift */; };
+		73EA1566221203EA002F6316 /* CatModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73EA1565221203EA002F6316 /* CatModel.swift */; };
+		73EA156A2212042F002F6316 /* Cat-meow-audio-clip.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 73EA15682212042F002F6316 /* Cat-meow-audio-clip.mp3 */; };
+		73EA156B2212042F002F6316 /* Cat-meow-short.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 73EA15692212042F002F6316 /* Cat-meow-short.mp3 */; };
 		B080145801B35E987719EEE7 /* Pods_FlickrExplore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 03EF7F4961EE3EAE7A6232E1 /* Pods_FlickrExplore.framework */; };
 /* End PBXBuildFile section */
 
@@ -50,6 +53,9 @@
 		732C219D22078673001571DB /* PhotoInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoInfo.swift; sourceTree = "<group>"; };
 		732C219F2207B5E6001571DB /* PhotoDetailCustom.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoDetailCustom.swift; sourceTree = "<group>"; };
 		73D5D665220FB9D600F96F60 /* AdvancedSearchPopUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdvancedSearchPopUpViewController.swift; sourceTree = "<group>"; };
+		73EA1565221203EA002F6316 /* CatModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CatModel.swift; sourceTree = "<group>"; };
+		73EA15682212042F002F6316 /* Cat-meow-audio-clip.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "Cat-meow-audio-clip.mp3"; sourceTree = "<group>"; };
+		73EA15692212042F002F6316 /* Cat-meow-short.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "Cat-meow-short.mp3"; sourceTree = "<group>"; };
 		D41E3669DDE049563BBA11CF /* Pods-FlickrExplore.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FlickrExplore.release.xcconfig"; path = "Pods/Target Support Files/Pods-FlickrExplore/Pods-FlickrExplore.release.xcconfig"; sourceTree = "<group>"; };
 		E2940F6930F1EEB6E71A5647 /* Pods-FlickrExplore.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FlickrExplore.debug.xcconfig"; path = "Pods/Target Support Files/Pods-FlickrExplore/Pods-FlickrExplore.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -112,6 +118,7 @@
 		732C217F22058682001571DB /* SupportingFiles */ = {
 			isa = PBXGroup;
 			children = (
+				73EA156722120419002F6316 /* Sounds */,
 				732C216D22057F8B001571DB /* AppDelegate.swift */,
 				732C217622057F8D001571DB /* LaunchScreen.storyboard */,
 				732C21902206D893001571DB /* Constants.swift */,
@@ -150,6 +157,7 @@
 		732C218D2206A7BE001571DB /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				73EA1565221203EA002F6316 /* CatModel.swift */,
 				732C218E2206A94C001571DB /* Photos.swift */,
 				732C219D22078673001571DB /* PhotoInfo.swift */,
 				732C219F2207B5E6001571DB /* PhotoDetailCustom.swift */,
@@ -165,6 +173,15 @@
 				732C21992207610E001571DB /* ImageDescriptionTableViewCell.swift */,
 			);
 			path = CustomView;
+			sourceTree = "<group>";
+		};
+		73EA156722120419002F6316 /* Sounds */ = {
+			isa = PBXGroup;
+			children = (
+				73EA15682212042F002F6316 /* Cat-meow-audio-clip.mp3 */,
+				73EA15692212042F002F6316 /* Cat-meow-short.mp3 */,
+			);
+			path = Sounds;
 			sourceTree = "<group>";
 		};
 		B17A0EFCE345C1B888B10645 /* Frameworks */ = {
@@ -237,7 +254,9 @@
 			files = (
 				732C217822057F8D001571DB /* LaunchScreen.storyboard in Resources */,
 				732C217522057F8D001571DB /* Assets.xcassets in Resources */,
+				73EA156A2212042F002F6316 /* Cat-meow-audio-clip.mp3 in Resources */,
 				732C217322057F8B001571DB /* Main.storyboard in Resources */,
+				73EA156B2212042F002F6316 /* Cat-meow-short.mp3 in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -299,6 +318,7 @@
 			files = (
 				732C219A2207610E001571DB /* ImageDescriptionTableViewCell.swift in Sources */,
 				732C2184220587F6001571DB /* GalleryViewController.swift in Sources */,
+				73EA1566221203EA002F6316 /* CatModel.swift in Sources */,
 				732C21892206851D001571DB /* GalleryViewModel.swift in Sources */,
 				732C21942207456E001571DB /* GalleryTableViewCell.swift in Sources */,
 				73D5D666220FB9D600F96F60 /* AdvancedSearchPopUpViewController.swift in Sources */,

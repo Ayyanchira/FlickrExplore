@@ -12,8 +12,10 @@ class PhotoDetailViewController: UIViewController, UITableViewDelegate, UITableV
     
     //MARK:- IBOUTlets
     var photoInfo:PhotoDetailCustom?
-    //MARK:- properties
     
+    
+    //MARK:- properties
+    var activityIndicatorView: UIActivityIndicatorView?
     
     
     //MARK:- View Lifecycle
@@ -25,9 +27,18 @@ class PhotoDetailViewController: UIViewController, UITableViewDelegate, UITableV
         // Do any additional setup after loading the view.
         NotificationCenter.default.addObserver(self, selector: #selector(self.updateUI(notification:)), name: Notification.Name(rawValue: "GetInfo"), object: nil)
         
+        //Show Activity indicator
+        showActivityIndicator()
+    }
+    
+    func showActivityIndicator() {
+        activityIndicatorView = UIActivityIndicatorView(frame: CGRect(x: (self.view.frame.width)/2 - 50, y: 100, width: 100, height: 100))
+        self.view.addSubview(activityIndicatorView!)
+        activityIndicatorView?.startAnimating()
     }
     
     @objc func updateUI(notification: NSNotification) {
+        activityIndicatorView?.stopAnimating()
         if let data = notification.object as? PhotoDetailCustom{
             photoInfo = data
             tableView.reloadData()

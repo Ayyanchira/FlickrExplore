@@ -26,7 +26,7 @@ class GalleryViewController: UIViewController, UITableViewDelegate, UITableViewD
     var isFilteredSearchOn = false
     var filteredPhotos:[Photo] = [Photo]()
     static var photos: Photos?
-    
+    var activityIndicatorView: UIActivityIndicatorView?
     //MARK:- Injection
     //lazy var galleryViewModel:GalleryViewModel = GalleryViewModel(searchTag: self.searchTag!)
     
@@ -38,7 +38,16 @@ class GalleryViewController: UIViewController, UITableViewDelegate, UITableViewD
         //Listen to observer
         NotificationCenter.default.addObserver(self, selector: #selector(refreshTableView), name: Notification.Name("reloadGallery"), object: nil)
         
+        //Show Activity indicator
+        showActivityIndicator()
     }
+    
+    func showActivityIndicator() {
+        activityIndicatorView = UIActivityIndicatorView(frame: CGRect(x: (self.view.frame.width)/2 - 50, y: 100, width: 100, height: 100))
+        self.view.addSubview(activityIndicatorView!)
+        activityIndicatorView?.startAnimating()
+    }
+    
     
     override func viewWillAppear(_ animated: Bool) {
         self.setTitle()
@@ -92,6 +101,7 @@ class GalleryViewController: UIViewController, UITableViewDelegate, UITableViewD
     }
     
     @objc func refreshTableView() {
+        activityIndicatorView?.stopAnimating()
         tableView.reloadData()
     }
     
