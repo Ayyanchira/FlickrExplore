@@ -11,9 +11,10 @@ import Alamofire
 
 class NetworkService: NSObject {
 
+    
     static public func getPhotoListFor(tag tagName:String)  {
         
-        Alamofire.request("https://api.flickr.com/services/rest/?method=\(Constants.API_Search_Method_Values.SearchMethod)&api_key=\(Constants.API_Search_Method_Values.APIKey)&format=json&nojsoncallback=1&tags=\(tagName)&safe_search=1", method: .get, parameters: nil, encoding: JSONEncoding.prettyPrinted, headers: nil).responsePhotos { (response) in
+        Alamofire.request("https://api.flickr.com/services/rest/?method=\(Constants.API_Search_Method_Values.SearchMethod)&api_key=\(Constants.API_Search_Method_Values.APIKey)&format=json&nojsoncallback=1&tags=\(tagName)&extras=description,tags", method: .get, parameters: nil, encoding: JSONEncoding.prettyPrinted, headers: nil).responsePhotos { (response) in
             if let json = response.result.value{
                 print("Its inside finally and the count is \(json.photos.photo.count)")
                 DispatchQueue.main.async {
@@ -21,20 +22,18 @@ class NetworkService: NSObject {
                     NotificationCenter.default.post(name: .init("reloadGallery"), object: nil)
                 }
             }else{
-                print("Still no hope. Error \(response.error?.localizedDescription)")
+                print("Model class mapping failed. Error \(response.error?.localizedDescription ?? "not found")")
             }
         }
     }
     
-    
+    //To get details of specific photo
     static public func getPhotoInfo(photoID: String)  {
         
         Alamofire.request("https://api.flickr.com/services/rest/?method=flickr.photos.getInfo&api_key=6a8e0794c29c9c6641e639af0f2e0754&format=json&photo_id=\(photoID)&nojsoncallback=1", method: .get, parameters: nil, encoding: JSONEncoding.prettyPrinted, headers: nil).responseJSON { (response) in
             if let json = response.result.value{
                 var secret = "", server = "", descriptionText = "", owner = "", location = "", rawFileUrl = ""
                 var tagCollection:[String] = []
-                print("This is response :\(json)")
-                
                 
                 if let jsonObject = json as? [String : Any]{
                     guard let photo = jsonObject["photo"] as? [String: Any] else{
@@ -62,8 +61,6 @@ class NetworkService: NSObject {
                     
                     if let description = descriptionObject["_content"] as? String {
                         descriptionText = description
-                    }else{
-                        descriptionText = ""
                     }
                     
                     //Extraction owner name and location

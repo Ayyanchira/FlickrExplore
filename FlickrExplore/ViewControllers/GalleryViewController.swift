@@ -13,13 +13,8 @@ class GalleryViewController: UIViewController, UITableViewDelegate, UITableViewD
     
     
     
-    
     //Mar:- IBOutlets
     @IBOutlet weak var tableView: UITableView!
-    
-    @IBAction func advancedSearchTextChanged(_ sender: UITextField) {
-        print("What is this?")
-    }
     
     //MARK:- Properties
     var searchTag:String?{
@@ -27,6 +22,7 @@ class GalleryViewController: UIViewController, UITableViewDelegate, UITableViewD
             NetworkService.getPhotoListFor(tag: searchTag!)
         }
     }
+    
     var isFilteredSearchOn = false
     var filteredPhotos:[Photo] = [Photo]()
     static var photos: Photos?
@@ -39,6 +35,7 @@ class GalleryViewController: UIViewController, UITableViewDelegate, UITableViewD
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        //Listen to observer
         NotificationCenter.default.addObserver(self, selector: #selector(refreshTableView), name: Notification.Name("reloadGallery"), object: nil)
         
     }
@@ -59,6 +56,9 @@ class GalleryViewController: UIViewController, UITableViewDelegate, UITableViewD
         guard GalleryViewController.photos != nil else {
             return 0
         }
+        if isFilteredSearchOn{
+            return filteredPhotos.count
+        }
         return GalleryViewController.photos?.photos.photo.count ?? 0
     }
     
@@ -66,8 +66,15 @@ class GalleryViewController: UIViewController, UITableViewDelegate, UITableViewD
         //return galleryViewModel.cellForRowAtIndexPath(tableView: tableView, indexPath: indexPath)
         let cell = tableView.dequeueReusableCell(withIdentifier: "gallaryCell") as! GalleryTableViewCell
         cell.imageTitle.text = ""
-
-        let imageURL = URL(string: "https://farm\(GalleryViewController.photos!.photos.photo[indexPath.row].farm).staticflickr.com/\(GalleryViewController.photos!.photos.photo[indexPath.row].server)/\(GalleryViewController.photos!.photos.photo[indexPath.row].id)_\(GalleryViewController.photos!.photos.photo[indexPath.row].secret).jpg")
+        
+        
+        var imageURL:URL
+        if (isFilteredSearchOn){
+            imageURL = URL(string: "https://farm\(filteredPhotos[indexPath.row].farm).staticflickr.com/\(filteredPhotos[indexPath.row].server)/\(filteredPhotos[indexPath.row].id)_\(filteredPhotos[indexPath.row].secret).jpg")!
+        }else{
+            imageURL = URL(string: "https://farm\(GalleryViewController.photos!.photos.photo[indexPath.row].farm).staticflickr.com/\(GalleryViewController.photos!.photos.photo[indexPath.row].server)/\(GalleryViewController.photos!.photos.photo[indexPath.row].id)_\(GalleryViewController.photos!.photos.photo[indexPath.row].secret).jpg")!
+        }
+        
         cell.selectionStyle = .none
         cell.thumbnailImageView.sd_setImage(with: imageURL, completed: nil)
         return cell
@@ -78,8 +85,10 @@ class GalleryViewController: UIViewController, UITableViewDelegate, UITableViewD
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        performSegue(withIdentifier: "showDetail", sender: GalleryViewController.photos!.photos.photo[indexPath.row])
-        NetworkService.getPhotoInfo(photoID: GalleryViewController.photos!.photos.photo[indexPath.row].id)
+        
+        let selectedPhoto = isFilteredSearchOn ? filteredPhotos[indexPath.row] : GalleryViewController.photos!.photos.photo[indexPath.row] 
+        performSegue(withIdentifier: "showDetail", sender: selectedPhoto)
+        NetworkService.getPhotoInfo(photoID: selectedPhoto.id)
     }
     
     @objc func refreshTableView() {
@@ -96,6 +105,7 @@ class GalleryViewController: UIViewController, UITableViewDelegate, UITableViewD
             advancedSearchPopOverVC.modalPresentationStyle = .popover
             advancedSearchPopOverVC.view.frame = CGRect(x: advancedSearchPopOverVC.view.frame.origin.x, y: advancedSearchPopOverVC.view.frame.origin.y, width: self.view.frame.width, height: advancedSearchPopOverVC.view.frame.height)
             advancedSearchPopOverVC.popoverPresentationController?.delegate = self
+            advancedSearchPopOverVC.isFilterOn = isFilteredSearchOn
             advancedSearchPopOverVC.delegate = self
         }
     }
@@ -105,20 +115,41 @@ class GalleryViewController: UIViewController, UITableViewDelegate, UITableViewD
     }
     
     
-    func performSearchUsing(keywords: String) {
-        print("Got this string.. woohoo. It says - \(keywords)")
-        isFilteredSearchOn = true
-        var photosCopy = GalleryViewController.photos
+    func performSearchUsing(keywords: String, isFilterOn: Bool) {
         
-        for (index,photo) in (photosCopy?.photos.photo.enumerated())!{
-            print("Iterating photo number : \(index) ")
-            print("Photo title is \(photo.title)")
-            if photo.title.contains(keywords){
-                //select this element
+        if keywords == ""{
+            isFilteredSearchOn = false
+            tableView.reloadData()
+            return
+        }
+        
+        isFilteredSearchOn = isFilterOn
+        filteredPhotos.removeAll()
+        
+        for (_,photo) in (GalleryViewController.photos?.photos.photo.enumerated())!{
+            
+            //Check title
+            if photo.title.lowercased().contains(keywords.lowercased()){
+                print("Photo title is \(photo.title)")
                 filteredPhotos.append(photo)
+                continue
+            }
+            
+            //Check description
+            if photo.description.content.lowercased().contains(keywords.lowercased()){
+                filteredPhotos.append(photo)
+                continue
+            }
+            
+            //Check tags
+            if photo.tags.lowercased().contains(keywords.lowercased()){
+                filteredPhotos.append(photo)
+                continue
             }
         }
         
+        print("Total filtered array only contains \(filteredPhotos.count) elements")
         tableView.reloadData()
     }
+    
 }

@@ -78,6 +78,8 @@ class PhotoDetailViewController: UIViewController, UITableViewDelegate, UITableV
         if let navigationController = self.parent as? UINavigationController{
             if let parentVC = navigationController.viewControllers[navigationController.viewControllers.count - 2] as? GalleryViewController{
                 parentVC.searchTag = sender.titleLabel?.text
+                parentVC.isFilteredSearchOn = false
+                
                 self.navigationController?.popViewController(animated: true)
             }
         }

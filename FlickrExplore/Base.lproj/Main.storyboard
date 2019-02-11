@@ -381,19 +381,25 @@
                                         <subviews>
                                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Search Here" textAlignment="center" adjustsFontForContentSizeCategory="YES" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="9Qn-OA-ymY">
                                                 <rect key="frame" x="93" y="0.0" width="84" height="17"/>
-                                                <color key="textColor" red="0.96157177520000003" green="1" blue="0.89887899189999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                <textInputTraits key="textInputTraits"/>
+                                                <textInputTraits key="textInputTraits" keyboardAppearance="alert"/>
                                             </textField>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Yud-6K-9Cr">
-                                                <rect key="frame" x="117.66666666666666" y="17" width="35" height="30"/>
-                                                <state key="normal" title="Filter"/>
+                                                <rect key="frame" x="116.66666666666666" y="17" width="37" height="30"/>
+                                                <state key="normal" title="Done"/>
                                                 <connections>
-                                                    <action selector="filterButtonPressed:" destination="Y3R-9h-rU9" eventType="touchUpInside" id="3hR-rx-QVD"/>
+                                                    <action selector="doneButtonPressed:" destination="Y3R-9h-rU9" eventType="touchUpInside" id="3hR-rx-QVD"/>
                                                 </connections>
                                             </button>
                                         </subviews>
                                     </stackView>
+                                    <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="iDU-TU-gD5">
+                                        <rect key="frame" x="236" y="33" width="49" height="31"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <connections>
+                                            <action selector="filterValueChanged:" destination="Y3R-9h-rU9" eventType="valueChanged" id="ybe-6t-6Qx"/>
+                                        </connections>
+                                    </switch>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
@@ -415,6 +421,7 @@
                     <value key="contentSizeForViewInPopover" type="size" width="300" height="83"/>
                     <size key="freeformSize" width="300" height="83"/>
                     <connections>
+                        <outlet property="filterSwitch" destination="iDU-TU-gD5" id="xOH-Fh-fvD"/>
                         <outlet property="searchTextField" destination="9Qn-OA-ymY" id="AkS-Ha-vIZ"/>
                     </connections>
                 </viewController>

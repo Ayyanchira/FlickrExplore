@@ -25,6 +25,16 @@ struct Photo: Codable {
     let farm: Int
     let title: String
     let ispublic, isfriend, isfamily: Int
+    let description: Description
+    let tags: String
+}
+
+struct Description: Codable {
+    let content: String
+    
+    enum CodingKeys: String, CodingKey {
+        case content = "_content"
+    }
 }
 
 func newJSONDecoder() -> JSONDecoder {
