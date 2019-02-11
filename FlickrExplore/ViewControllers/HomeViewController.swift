@@ -78,7 +78,7 @@ class HomeViewController: UIViewController, UITextFieldDelegate {
         //animate image
         UIView.animate(withDuration: 1.0, animations: {
             let screenWidth = self.view.frame.width
-            let randomX1 = Float.random(in: Float(screenWidth/2) ..< Float(screenWidth - 200))
+            let randomX1 = Float.random(in: Float(screenWidth/3) ..< Float(screenWidth - 200))
             let randomX2 = Float.random(in: -100 ..< Float(screenWidth/4))
             
             //Flipping sides to control randomness to some extent
