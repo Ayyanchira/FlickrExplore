@@ -38,27 +38,20 @@ class GalleryViewController: UIViewController, UITableViewDelegate, UITableViewD
         //Listen to observer
         NotificationCenter.default.addObserver(self, selector: #selector(refreshTableView), name: Notification.Name("reloadGallery"), object: nil)
         
-        //Show Activity indicator
+        //Show Activity indicator unless response is recieved
         showActivityIndicator()
     }
     
-    func showActivityIndicator() {
-        activityIndicatorView = UIActivityIndicatorView(frame: CGRect(x: (self.view.frame.width)/2 - 50, y: 100, width: 100, height: 100))
-        self.view.addSubview(activityIndicatorView!)
-        activityIndicatorView?.startAnimating()
-    }
-    
-    
     override func viewWillAppear(_ animated: Bool) {
         self.setTitle()
-        //NetworkService.getPhotoListFor(tag: searchTag!)
+    }
+
+    //MARK:- IBAction methods
+    @IBAction func advancedSearchPressed(_ sender: UIBarButtonItem) {
+        performSegue(withIdentifier: "advancedSearch", sender: nil)
     }
     
-    func setTitle() {
-        self.navigationItem.title = "# \(searchTag ?? "Recent") "
-    }
-
-
+    
     //MARK:- Table view delegate methods
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         //return self.galleryViewModel.numberOfRowInSection(tableView: tableView, section: section)
@@ -100,14 +93,7 @@ class GalleryViewController: UIViewController, UITableViewDelegate, UITableViewD
         NetworkService.getPhotoInfo(photoID: selectedPhoto.id)
     }
     
-    @objc func refreshTableView() {
-        activityIndicatorView?.stopAnimating()
-        tableView.reloadData()
-    }
-    
-    @IBAction func advancedSearchPressed(_ sender: UIBarButtonItem) {
-        performSegue(withIdentifier: "advancedSearch", sender: nil)
-    }
+    //MARK:- UI Navigation methods
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "advancedSearch"{
@@ -124,9 +110,30 @@ class GalleryViewController: UIViewController, UITableViewDelegate, UITableViewD
         return .none
     }
     
+    //MARK:- Functionalities
     
+    //Function to stop current running animation and reloading table view. Called by Notification system on recieving network callback.
+    @objc func refreshTableView() {
+        activityIndicatorView?.stopAnimating()
+        tableView.reloadData()
+    }
+    
+    //Function to set title of the screen by prefixing Hashtag symbol
+    func setTitle() {
+        self.navigationItem.title = "# \(searchTag ?? "Recent") "
+    }
+    
+    //Function to initialize and loading activity indicator.
+    func showActivityIndicator() {
+        activityIndicatorView = UIActivityIndicatorView(frame: CGRect(x: (self.view.frame.width)/2 - 50, y: 100, width: 100, height: 100))
+        self.view.addSubview(activityIndicatorView!)
+        activityIndicatorView?.startAnimating()
+    }
+    
+    // Function to perform advanced search based on provided string and a check if filter is turned on by user.
     func performSearchUsing(keywords: String, isFilterOn: Bool) {
         
+        //An empty string with filter on is considered as no filter. Allows switching the array to global static array
         if keywords == ""{
             isFilteredSearchOn = false
             tableView.reloadData()
@@ -136,6 +143,7 @@ class GalleryViewController: UIViewController, UITableViewDelegate, UITableViewD
         isFilteredSearchOn = isFilterOn
         filteredPhotos.removeAll()
         
+        //Check each photo in global static variable for keywords
         for (_,photo) in (GalleryViewController.photos?.photos.photo.enumerated())!{
             
             //Check title
@@ -158,7 +166,6 @@ class GalleryViewController: UIViewController, UITableViewDelegate, UITableViewD
             }
         }
         
-        print("Total filtered array only contains \(filteredPhotos.count) elements")
         tableView.reloadData()
     }
     

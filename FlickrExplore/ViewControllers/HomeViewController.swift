@@ -11,11 +11,13 @@ import AVFoundation
 
 class HomeViewController: UIViewController, UITextFieldDelegate {
 
+    //MARK:- Properties and IBOutlets
     @IBOutlet weak var searchBoxTextField: UITextField!
     var cats:[CatModel] = [CatModel]()
     var audioPlayer : AVAudioPlayer?
     var isEven = false
     
+    //MARK:- View Life Cycle Methods
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -32,6 +34,7 @@ class HomeViewController: UIViewController, UITextFieldDelegate {
         navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.white]
         searchBoxTextField.delegate = self
     }
+    
     
     func loadCatModel()  {
         //Make sure you have this file. There is no if let check in initializer or anywhere. The app may crash otherwise
@@ -54,41 +57,17 @@ class HomeViewController: UIViewController, UITextFieldDelegate {
         }
     }
     
+    
+    
     @IBAction func kittenButtonPressed(_ sender: UIButton){
         
         //Choose a cat by random
         let cat = cats[Int.random(in: 0..<cats.count)]
         
         //Play sound made by that cat
-        audioPlayer = AVAudioPlayer()
-        do {
-            audioPlayer = try AVAudioPlayer(contentsOf: cat.soundURL)
-            audioPlayer?.play()
-        } catch  {
-            print("Error occured in playing the sound...")
-        }
+        playAudio(cat)
         
-        //load image
-        let imageView = UIImageView(frame: CGRect(x: 40, y: self.view.frame.height, width: 200, height: 500))
-        imageView.image = cat.image
-        imageView.contentMode = .scaleAspectFit
-        self.view.addSubview(imageView)
-        
-        
-        //animate image
-        UIView.animate(withDuration: 1.0, animations: {
-            let screenWidth = self.view.frame.width
-            let randomX1 = Float.random(in: Float(screenWidth/3) ..< Float(screenWidth - 200))
-            let randomX2 = Float.random(in: -100 ..< Float(screenWidth/4))
-            
-            //Flipping sides to control randomness to some extent
-            let randomX = self.isEven ? randomX1 : randomX2
-            self.isEven = !self.isEven
-            
-            imageView.frame =  CGRect(x: CGFloat(randomX), y: imageView.frame.origin.y - 350, width: 200, height: 350)
-        }) { (isAnimationComplete) in
-            imageView.removeFromSuperview()
-        }
+        animate(cat)
     }
     
     @IBAction func searchButtonPressed(_ sender: Any) {
@@ -117,5 +96,45 @@ class HomeViewController: UIViewController, UITextFieldDelegate {
         return true
     }
 
+    //MARK:- Functionalties
+    
+    
+    //Initialize and play audio of the specified cat
+    fileprivate func playAudio(_ cat: CatModel) {
+        
+        audioPlayer = AVAudioPlayer()
+        do {
+            audioPlayer = try AVAudioPlayer(contentsOf: cat.soundURL)
+            audioPlayer?.play()
+        } catch  {
+            print("Error occured in playing the sound...")
+        }
+    }
+    
+    
+    //Load the image of specified cat on the view and animate
+    fileprivate func animate(_ cat: CatModel) {
+        
+        //load image
+        let imageView = UIImageView(frame: CGRect(x: 40, y: self.view.frame.height, width: 200, height: 500))
+        imageView.image = cat.image
+        imageView.contentMode = .scaleAspectFit
+        self.view.addSubview(imageView)
+        
+        //animate image
+        UIView.animate(withDuration: 1.0, animations: {
+            let screenWidth = self.view.frame.width
+            let randomX1 = Float.random(in: Float(screenWidth/3) ..< Float(screenWidth - 200))
+            let randomX2 = Float.random(in: -100 ..< Float(screenWidth/4))
+            
+            //Flipping sides to control randomness to some extent
+            let randomX = self.isEven ? randomX1 : randomX2
+            self.isEven = !self.isEven
+            
+            imageView.frame =  CGRect(x: CGFloat(randomX), y: imageView.frame.origin.y - 350, width: 200, height: 350)
+        }) { (isAnimationComplete) in
+            imageView.removeFromSuperview()
+        }
+    }
 }
 

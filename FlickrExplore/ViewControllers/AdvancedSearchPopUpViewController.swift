@@ -44,16 +44,8 @@ class AdvancedSearchPopUpViewController: UIViewController, UITextFieldDelegate {
         updateGallery()
     }
     
-    //MARK:- Delegate Methods
-    
+
     //MARK:- Helper functions
-    fileprivate func updateGallery() {
-        if delegate != nil{
-            delegate?.performSearchUsing(keywords: searchTextField.text!, isFilterOn: self.filterSwitch.isOn)
-        }else{
-            print("Delegate is not set. Which means parent view is not interested to listen to this protocol. Have the parent view set this delegate to itsself and implement this method")
-        }
-    }
     
     func initializeFilterSwitchState() {
         if let filterOn = isFilterOn {
@@ -63,9 +55,18 @@ class AdvancedSearchPopUpViewController: UIViewController, UITextFieldDelegate {
         }
     }
     
+    //Callback function to update gallery on parent view controller invoked when text is beeen edited on textfield.
     @objc func textFieldDidChange(_textField:UITextField){
         if filterSwitch.isOn{
             updateGallery()
+        }
+    }
+    
+    fileprivate func updateGallery() {
+        if delegate != nil{
+            delegate?.performSearchUsing(keywords: searchTextField.text!, isFilterOn: self.filterSwitch.isOn)
+        }else{
+            print("Delegate is not set. Which means parent view is not interested to listen to this protocol. Have the parent view set this delegate to itsself and implement this method")
         }
     }
 }
